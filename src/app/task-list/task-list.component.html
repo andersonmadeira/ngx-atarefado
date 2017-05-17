@@ -1,0 +1,9 @@
+<div id="myDIV" class="header">
+  <h2>My Task List</h2>
+  <input type="text" [(ngModel)]="taskInput" (keyup.enter)='newTask()' placeholder="Type your next task..">
+  <span (click)="newTask()" class="addBtn">Add</span>
+</div>
+
+<ul id="myUL">
+  <li *ngFor='let item of items' [class.checked]='item.checked' [@taskStateAnimation]="item.state"> {{item.name}} <span (click)='closeTask(item)' class="close">X</span> </li>
+</ul>

@@ -17,7 +17,11 @@ ul li {
     padding: 12px 8px 12px 40px;
     background: #eee;
     font-size: 18px;
-    transition: 0.2s;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
 
     /* make the list items unselectable */
     -webkit-user-select: none;
@@ -41,6 +45,11 @@ ul li.checked {
     background: #888;
     color: #fff;
     text-decoration: line-through;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
 }
 
 /* Add a "checked" mark when clicked on */
@@ -60,6 +69,7 @@ ul li.checked::before {
 /* Style the close button */
 .close {
     position: absolute;
+    content: "\274c";
     right: 0;
     top: 0;
     padding: 12px 16px 12px 16px

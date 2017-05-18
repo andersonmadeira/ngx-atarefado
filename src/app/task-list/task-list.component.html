@@ -5,5 +5,5 @@
 </div>
 
 <ul id="myUL">
-  <li *ngFor='let item of items' [class.checked]='item.checked' (click)='item.checked = !item.checked'> {{item.name}} <span (click)='closeTask(item)' class="close">X</span> </li>
+  <li *ngFor='let item of items' [class.checked]='item.checked' (click)='item.checked = !item.checked'> {{item.name}} <span (click)='closeTask(item)' class="close">&#x00D7;</span> </li>
 </ul>

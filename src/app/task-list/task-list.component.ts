@@ -11,23 +11,23 @@ export class TaskListComponent implements OnInit {
 
   public taskInput: string = '';
 
-  private subs: Subscription;
+  private subs: Array<any> = [];
 
   public items = [
-    {id: this.generateUniqueId(), name: 'Buy food', checked: false, active: true},
-    {id: this.generateUniqueId(), name: 'Meet Jimmy Hendrix', checked: true, active: true},
-    {id: this.generateUniqueId(), name: 'Study for the test', checked: false, active: true},
-    {id: this.generateUniqueId(), name: 'Buy a car', checked: false, active: true},
-    {id: this.generateUniqueId(), name: 'Read the news', checked: true, active: true},
-    {id: this.generateUniqueId(), name: 'Get up', checked: true, active: true}
+    {id: this.generateUniqueId(), name: 'Sample task 1', checked: false, active: true},
+    {id: this.generateUniqueId(), name: 'Sample task 2', checked: true, active: true},
   ]
 
   constructor() {
-    console.log(this.items);
+    let localTasks = localStorage.getItem('tasks');
+    console.log(localTasks);
+    if ( localTasks != null )
+      this.items = JSON.parse(localStorage.getItem('tasks'));
   }
 
   newTask() {
     this.items.push({ id: this.generateUniqueId(), name: this.taskInput, checked: false, active: true});
+    localStorage.setItem('tasks', JSON.stringify(this.items));
     this.taskInput = '';
   }
 
@@ -37,10 +37,22 @@ export class TaskListComponent implements OnInit {
       if (item.id == task.id) {
         let timer = TimerObservable.create(500, 1000);
         item.active = false;
-        this.subs = timer.subscribe(t => {
-          this.items.splice(index, 1);
-          this.subs.unsubscribe();
-        });
+        this.subs.push(
+          { 'source': item.id,
+            'sub': timer.subscribe(t => {
+              this.items.splice(index, 1);
+              let i = 0;
+              for (let s of this.subs) {
+                if (s.id == item.id) {
+                  this.subs[i].sub.unsubscribe();
+                  this.subs.splice(i, 1);
+                  break;
+                }
+                i++;
+              }
+            })
+          }
+        );
         return;
       }
       index += 1;

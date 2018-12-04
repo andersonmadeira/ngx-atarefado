@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 import { timer } from 'rxjs';
 
 import { Task } from 'app/types';
@@ -6,7 +7,19 @@ import { Task } from 'app/types';
 @Component({
   selector: 'app-task-list',
   templateUrl: './task-list.component.html',
-  styleUrls: ['./task-list.component.css']
+  styleUrls: ['./task-list.component.css'],
+  animations: [
+    trigger('taskItemAnimation', [
+      state('in', style({ opacity: 1 })),
+      // element entering, i.e. created
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate(300)
+      ]),
+      // element destroyed
+      transition(':leave', animate(300, style({ opacity: 0 })))
+    ])
+  ]
 })
 export class TaskListComponent implements OnInit {
 

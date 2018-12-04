@@ -5,5 +5,5 @@
 </div>
 
 <ul id="myUL">
-  <li *ngFor='let task of tasks'  class='animated' (click)='task.checked = !task.checked'> {{task.name}} <span (click)='closeTask(task)' class="close">&#x00D7;</span> </li>
+  <li [@taskItemAnimation]="'in'" *ngFor='let task of tasks' [class.done]="task.done" class='animated' (click)='task.done = !task.done'> {{task.name}} <span (click)='closeTask(task)' class="close">&#x00D7;</span> </li>
 </ul>

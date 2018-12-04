@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { TimerObservable } from 'rxjs/observable/TimerObservable';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-task-list',
@@ -35,11 +34,11 @@ export class TaskListComponent implements OnInit {
     let index: number = 0;
     for (let item of this.items) {
       if (item.id == task.id) {
-        let timer = TimerObservable.create(500, 1000);
+        let tm = timer(500, 1000);
         item.active = false;
         this.subs.push(
           { 'source': item.id,
-            'sub': timer.subscribe(t => {
+            'sub': tm.subscribe(t => {
               this.items.splice(index, 1);
               let i = 0;
               for (let s of this.subs) {

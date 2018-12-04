@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { timer } from 'rxjs';
 
+import { Task } from 'app/types';
+
 @Component({
   selector: 'app-task-list',
   templateUrl: './task-list.component.html',
@@ -10,53 +12,30 @@ export class TaskListComponent implements OnInit {
 
   public taskInput: string = '';
 
-  private subs: Array<any> = [];
-
-  public items = [
-    {id: this.generateUniqueId(), name: 'Sample task 1', checked: false, active: true},
-    {id: this.generateUniqueId(), name: 'Sample task 2', checked: true, active: true},
-  ]
+  public tasks: Task[] = [
+    { id: this.generateUniqueId(), name: 'Sample Task 1', done: false },
+    { id: this.generateUniqueId(), name: 'Sample Task 2', done: true },
+  ];
 
   constructor() {
-    let localTasks = localStorage.getItem('tasks');
-    console.log(localTasks);
+    let localTasks: string = localStorage.getItem('tasks');
     if ( localTasks != null )
-      this.items = JSON.parse(localStorage.getItem('tasks'));
+      this.tasks = JSON.parse(localStorage.getItem('tasks'));
   }
 
-  newTask() {
-    this.items.push({ id: this.generateUniqueId(), name: this.taskInput, checked: false, active: true});
-    localStorage.setItem('tasks', JSON.stringify(this.items));
+  ngOnInit() {
+    // pass silently
+  }
+
+  saveTask() {
+    this.tasks.push({ id: this.generateUniqueId(), name: this.taskInput, done: false });
+    localStorage.setItem('tasks', JSON.stringify(this.tasks));
     this.taskInput = '';
   }
 
-  closeTask(task) {
-    let index: number = 0;
-    for (let item of this.items) {
-      if (item.id == task.id) {
-        let tm = timer(500, 1000);
-        item.active = false;
-        this.subs.push(
-          { 'source': item.id,
-            'sub': tm.subscribe(t => {
-              this.items.splice(index, 1);
-              let i = 0;
-              for (let s of this.subs) {
-                if (s.id == item.id) {
-                  this.subs[i].sub.unsubscribe();
-                  this.subs.splice(i, 1);
-                  break;
-                }
-                i++;
-              }
-            })
-          }
-        );
-        return;
-      }
-      index += 1;
-    }
-    // this.items = this.items.filter(obj => { return obj.id != task.id });
+  closeTask(t: Task) {
+    this.tasks = this.tasks.filter( (task: Task) => task.id != t.id );
+    localStorage.setItem('tasks', JSON.stringify(this.tasks));
   }
 
   private generateUniqueId() {
@@ -67,9 +46,6 @@ export class TaskListComponent implements OnInit {
           return (c=='x' ? r : (r&0x3|0x8)).toString(16);
       });
       return uuid;
-  }
-
-  ngOnInit() {
   }
 
 }

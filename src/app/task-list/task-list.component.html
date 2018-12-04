@@ -1,9 +1,9 @@
 <div id="myDIV" class="header">
   <h2>My Task List</h2>
-  <input type="text" [(ngModel)]="taskInput" (keyup.enter)='newTask()' placeholder="Type your next task..">
-  <span (click)="newTask()" class="addBtn">Add</span>
+  <input type="text" [(ngModel)]="taskInput" (keyup.enter)='saveTask()' placeholder="Type your next task..">
+  <span (click)="saveTask()" class="addBtn">Add</span>
 </div>
 
 <ul id="myUL">
-  <li class='animated' [class.fadeOut]='!item.active' [class.bounceIn]='item.active' [class.pulse]='item.checked' *ngFor='let item of items' [class.checked]='item.checked' (click)='item.checked = !item.checked'> {{item.name}} <span (click)='closeTask(item)' class="close">&#x00D7;</span> </li>
+  <li *ngFor='let task of tasks'  class='animated' (click)='task.checked = !task.checked'> {{task.name}} <span (click)='closeTask(task)' class="close">&#x00D7;</span> </li>
 </ul>

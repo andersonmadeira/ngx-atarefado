@@ -5,5 +5,5 @@
 </div>
 
 <ul id="task-list">
-  <li [@taskItemAnimation]="'in'" *ngFor='let task of tasks' [class.done]="task.done" class='animated' (click)='task.done = !task.done'> {{task.name}} <span (click)='removeTask(task.id)' class="close">&#x00D7;</span> </li>
+  <li [@taskItemAnimation]="'in'" *ngFor='let task of tasks' [class.done]="task.done" class='animated' (click)='task.done = !task.done'>  <span class="task_name">{{task.name}}</span> <span (click)='editTask($event, task)' class="icono-rename"></span> <span (click)='removeTask(task.id)' class="icono-cross"></span> </li>
 </ul>

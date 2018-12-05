@@ -40,7 +40,7 @@ export class TaskListComponent implements OnInit {
 
   @HostListener('window:load', ['$event'])
   onPageLoad(event) {
-    this.taskService.fetch().subscribe( (tasks: Task[]) => {
+    this.taskService.fetch().subscribe((tasks: Task[]) => {
       this.tasks = tasks;
       console.log("Fetched tasks: ", tasks);
     });
@@ -48,9 +48,19 @@ export class TaskListComponent implements OnInit {
 
   @HostListener('window:unload', ['$event'])
   onPageUnload(event) {
-    this.taskService.save().subscribe( (success: boolean) => {
+    this.taskService.save().subscribe((success: boolean) => {
       console.log("Saved tasks: ", success);
     })
+  }
+
+  editTask(event: Event, t: Task) {
+    let new_name = prompt("Type new name for task: ");
+    if (new_name) {
+      t.name = new_name;
+    } else if (new_name !== null) {
+      alert('Name must not be empty!');
+    }
+    event.stopImmediatePropagation();
   }
 
   addTask() {

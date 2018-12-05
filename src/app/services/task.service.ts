@@ -18,7 +18,7 @@ export class TaskService {
   }
 
   add(taskName: string) {
-    this.tasks.push({ id: this.utilService.generateUniqueId(), name: taskName, done: false });
+    this.tasks.push({ id: this.utilService.generateUniqueId(), name: taskName });
     this.triggerChanged();
   }
 

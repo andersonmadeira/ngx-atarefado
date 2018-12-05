@@ -1,60 +1,59 @@
+import { BoardFactory } from './../factories/board.factory';
 import { Injectable, EventEmitter } from '@angular/core';
-import { Task } from 'app/types';
+import { Task, Board } from 'app/types';
 
 import { UtilService } from './util.service';
 import { Observable } from 'rxjs';
+import { TaskFactory } from 'app/factories';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
 
-  public tasks: Task[] = [];
+  public boards: Board[] = [];
 
-  private onChangedEvent: EventEmitter<Task[]>;
+  constructor(private utilService: UtilService, private taskFactory: TaskFactory, private boardFactory: BoardFactory) { }
 
-  constructor(private utilService: UtilService) {
-    this.onChangedEvent = new EventEmitter<Task[]>();
+  add(taskName: string, board: Board) {
+    board.tasks.push(this.taskFactory.make(taskName));
   }
 
-  add(taskName: string) {
-    this.tasks.push({ id: this.utilService.generateUniqueId(), name: taskName });
-    this.triggerChanged();
+  remove(task: Task, board: Board) {
+    board.tasks = board.tasks.filter((t: Task) => t.id !== task.id);
   }
 
-  remove(taskId: string) {
-    this.tasks = this.tasks.filter((task: Task) => task.id != taskId);
-    this.triggerChanged();
+  getBoards(): Board[] {
+    return this.boards;
   }
 
-  getAll(): Task[] {
-    return this.tasks;
+  restore(): Board[] {
+    let boards: Board[] = [];
+    let localBoards = localStorage.getItem('boards');
+    console.log(localBoards);
+    if (localBoards) {
+      boards = JSON.parse(localBoards);
+    }
+    return this.boards = boards;
   }
 
-  onChange(): Observable<Task[]> {
-    return this.onChangedEvent.asObservable();
+  save() {
+    localStorage.setItem('boards', JSON.stringify(this.boards));
   }
 
-  fetch(): Observable<Task[]> {
-    return new Observable<Task[]>((observer) => {
-      let tasks: Task[] = [];
-      let localTasks = localStorage.getItem('tasks');
-      if (localTasks !== '') {
-        tasks = JSON.parse(localTasks);
-      }
-      observer.next(this.tasks = tasks);
-    });
+  getBoard(boardId: string): Board | null {
+    return this.boards.find((board: Board) => board.id === boardId);
   }
 
-  save(): Observable<boolean> {
-    return new Observable<boolean>((observer) => {
-      localStorage.setItem('tasks', JSON.stringify(this.tasks));
-      observer.next(true);
-    });
+  removeBoard(boardId: string) {
+    this.boards = this.boards.filter((board: Board) => board.id !== boardId);
   }
 
-  private triggerChanged() {
-    this.onChangedEvent.emit(this.tasks);
+  addBoard(name: string, tasks: Task[] = []): Board {
+    let board = this.boardFactory.make(name, tasks);
+    console.log(this.boards);
+    this.boards.push(board);
+    return board;
   }
 
 }

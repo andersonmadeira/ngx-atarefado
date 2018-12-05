@@ -1,14 +1,14 @@
-import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, Input, ViewEncapsulation } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
-import { Task } from 'app/types';
+import { Task, Board } from 'app/types';
 import { TaskService } from 'app/services';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-task-list',
-  templateUrl: './task-list.component.html',
-  styleUrls: ['./task-list.component.css'],
+  selector: 'app-board',
+  templateUrl: './board.component.html',
+  styleUrls: ['./board.component.css'],
   animations: [
     trigger('taskItemAnimation', [
       state('in', style({ opacity: 1 })),
@@ -22,35 +22,21 @@ import { Observable } from 'rxjs';
     ])
   ]
 })
-export class TaskListComponent implements OnInit {
+export class BoardComponent implements OnInit {
+
+  /**
+   * Category name
+   */
+  @Input() board: Board;
 
   public taskInput: string = '';
-  public tasks: Task[];
 
   constructor(private taskService: TaskService) {
     // pass silently
   }
 
   ngOnInit() {
-    this.taskService.onChange().subscribe((tasks: Task[]) => {
-      this.tasks = tasks;
-      console.log(tasks);
-    });
-  }
-
-  @HostListener('window:load', ['$event'])
-  onPageLoad(event) {
-    this.taskService.fetch().subscribe((tasks: Task[]) => {
-      this.tasks = tasks;
-      console.log("Fetched tasks: ", tasks);
-    });
-  }
-
-  @HostListener('window:unload', ['$event'])
-  onPageUnload(event) {
-    this.taskService.save().subscribe((success: boolean) => {
-      console.log("Saved tasks: ", success);
-    })
+    // pass silently
   }
 
   editTask(event: Event, t: Task) {
@@ -65,15 +51,15 @@ export class TaskListComponent implements OnInit {
 
   addTask() {
     if (this.taskInput !== '') {
-      this.taskService.add(this.taskInput);
+      this.taskService.add(this.taskInput, this.board);
       this.taskInput = '';
     } else {
       alert('Task must not be empty!');
     }
   }
 
-  removeTask(taskId: string) {
-    this.taskService.remove(taskId);
+  removeTask(task: Task) {
+    this.taskService.remove(task, this.board);
   }
 
 }

@@ -1,9 +1,0 @@
-<div id="header" class="header">
-  <h2>ngx-tasks</h2>
-  <input type="text" [(ngModel)]="taskInput" (keyup.enter)='addTask()' placeholder="Type your next task..">
-  <span (click)="addTask()" class="addBtn">Add</span>
-</div>
-
-<ul id="task-list">
-  <li [@taskItemAnimation]="'in'" *ngFor='let task of tasks' [class.done]="task.done" class='animated' (click)='task.done = !task.done'>  <span class="task_name">{{task.name}}</span> <span (click)='editTask($event, task)' class="icono-rename"></span> <span (click)='removeTask(task.id)' class="icono-cross"></span> </li>
-</ul>

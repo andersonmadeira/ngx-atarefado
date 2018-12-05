@@ -1,8 +1,13 @@
-@import 'https://saeedalipoor.github.io/icono/icono.min.css';
-
 /* Include the padding and border in an element's total width and height */
 * {
     box-sizing: border-box;
+}
+
+:host {
+  float: left;
+  margin-right: 40px;
+  margin-top: 40px;
+  width: 400px;
 }
 
 /* Remove margins and padding from the list */
@@ -115,23 +120,26 @@ input {
     font-size: 16px;
 }
 
-/* Style the "Add" button */
-.addBtn {
-    padding: 10px;
-    width: 25%;
-    background: #d9d9d9;
-    color: #555;
-    float: left;
-    text-align: center;
-    font-size: 16px;
-    cursor: pointer;
-    transition: 0.3s;
+.btn {
+  padding: 10px;
+  width: 25%;
+  background: #d9d9d9;
+  color: #555;
+  float: left;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-.addBtn:hover {
-    background-color: #bbb;
+.btn:hover {
+  background-color: #bbb;
 }
 
-.task_name {
-  white-space: nowrap;
+.btn-primary {
+  background: #f44336;
+}
+
+.cat_title {
+  margin-top: 0px;
 }

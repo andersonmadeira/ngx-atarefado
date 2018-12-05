@@ -4,11 +4,11 @@ A simple but powerful todo app that serves as an experiment of best practices of
 
 ## Instructions:
 
-#### No patience:
+### No patience:
 
-You can jump right into the app: https://andersonmadeira.github.io/ngx-tasks/
+Ok, you can jump right into the app [here](https://andersonmadeira.github.io/ngx-tasks/)
 
-#### By myself:
+### By myself:
 
 Clone the repo:
 

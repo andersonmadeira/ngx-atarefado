@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { timer } from 'rxjs';
 
 import { Task } from 'app/types';
+import { TaskService } from 'app/services';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-task-list',
@@ -24,45 +25,45 @@ import { Task } from 'app/types';
 export class TaskListComponent implements OnInit {
 
   public taskInput: string = '';
+  public tasks: Task[];
 
-  public tasks: Task[] = [
-    { id: this.generateUniqueId(), name: 'Sample Task 1', done: false },
-    { id: this.generateUniqueId(), name: 'Sample Task 2', done: true },
-  ];
-
-  constructor() {
-    let localTasks: string = localStorage.getItem('tasks');
-    if (localTasks != null)
-      this.tasks = JSON.parse(localStorage.getItem('tasks'));
-  }
-
-  ngOnInit() {
+  constructor(private taskService: TaskService) {
     // pass silently
   }
 
-  saveTask() {
+  ngOnInit() {
+    this.taskService.onChange().subscribe((tasks: Task[]) => {
+      this.tasks = tasks;
+      console.log(tasks);
+    });
+  }
+
+  @HostListener('window:load', ['$event'])
+  onPageLoad(event) {
+    this.taskService.fetch().subscribe( (tasks: Task[]) => {
+      this.tasks = tasks;
+      console.log("Fetched tasks: ", tasks);
+    });
+  }
+
+  @HostListener('window:unload', ['$event'])
+  onPageUnload(event) {
+    this.taskService.save().subscribe( (success: boolean) => {
+      console.log("Saved tasks: ", success);
+    })
+  }
+
+  addTask() {
     if (this.taskInput !== '') {
-      this.tasks.push({ id: this.generateUniqueId(), name: this.taskInput, done: false });
-      localStorage.setItem('tasks', JSON.stringify(this.tasks));
+      this.taskService.add(this.taskInput);
       this.taskInput = '';
     } else {
       alert('Task must not be empty!');
     }
   }
 
-  closeTask(t: Task) {
-    this.tasks = this.tasks.filter((task: Task) => task.id != t.id);
-    localStorage.setItem('tasks', JSON.stringify(this.tasks));
-  }
-
-  private generateUniqueId() {
-    var d = new Date().getTime();
-    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-      var r = (d + Math.random() * 16) % 16 | 0;
-      d = Math.floor(d / 16);
-      return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-    });
-    return uuid;
+  removeTask(taskId: string) {
+    this.taskService.remove(taskId);
   }
 
 }

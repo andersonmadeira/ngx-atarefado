@@ -1,9 +1,9 @@
-<div id="myDIV" class="header">
-  <h2>My Task List</h2>
-  <input type="text" [(ngModel)]="taskInput" (keyup.enter)='saveTask()' placeholder="Type your next task..">
-  <span (click)="saveTask()" class="addBtn">Add</span>
+<div id="header" class="header">
+  <h2>ngx-tasks</h2>
+  <input type="text" [(ngModel)]="taskInput" (keyup.enter)='addTask()' placeholder="Type your next task..">
+  <span (click)="addTask()" class="addBtn">Add</span>
 </div>
 
-<ul id="myUL">
-  <li [@taskItemAnimation]="'in'" *ngFor='let task of tasks' [class.done]="task.done" class='animated' (click)='task.done = !task.done'> {{task.name}} <span (click)='closeTask(task)' class="close">&#x00D7;</span> </li>
+<ul id="task-list">
+  <li [@taskItemAnimation]="'in'" *ngFor='let task of tasks' [class.done]="task.done" class='animated' (click)='task.done = !task.done'> {{task.name}} <span (click)='removeTask(task.id)' class="close">&#x00D7;</span> </li>
 </ul>

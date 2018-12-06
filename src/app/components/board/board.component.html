@@ -1,9 +1,16 @@
 <div class="header">
-  <h2 class="title"> {{ board.name }}</h2>
+  <div class="options">
+    <span class="icono-rename option-icon" (click)="editBoard()"></span>
+    <span class="icono-cross option-icon" (click)="removeBoard()"></span>
+  </div>
+  <h2 [hidden]="titleEditable" class="title"> {{ board.name }} </h2>
+  <input [hidden]="!titleEditable" #editTitleInput class="title-input" type="text" (keyup.enter)="editBoardDone(editTitleInput.value)">
   <input type="text" [(ngModel)]="taskInput" (keyup.enter)='addTask()' placeholder="Type your next task..">
   <span (click)="addTask()" class="btn">Add</span>
 </div>
 
 <ul id="task-list">
-  <li [@taskItemAnimation]="'in'" *ngFor='let task of board.tasks' [class.done]="task.done" class='animated' (click)='task.done = !task.done'>  <span class="task_name">{{task.name}}</span> <span (click)='editTask($event, task)' class="icono-rename"></span> <span (click)='removeTask(task)' class="icono-cross"></span> </li>
+  <li [@taskItemAnimation]="'in'" *ngFor='let task of board.tasks' [class.done]="task.done" class='animated' (click)='task.done = !task.done'>
+    <span class="task_name">{{task.name}}</span> <span (click)='editTask($event, task)' class="icono-rename"></span>
+    <span (click)='removeTask(task)' class="icono-cross"></span> </li>
 </ul>

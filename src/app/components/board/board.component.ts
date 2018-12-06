@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, HostListener, Input, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, Input, ViewEncapsulation, ViewChild, ElementRef } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
 import { Task, Board } from 'app/types';
@@ -29,6 +29,11 @@ export class BoardComponent implements OnInit {
    */
   @Input() board: Board;
 
+  titleEditable: boolean = false;
+
+  @ViewChild('editTitleInput')
+  editTitleInput: ElementRef;
+
   public taskInput: string = '';
 
   constructor(private taskService: TaskService) {
@@ -47,6 +52,23 @@ export class BoardComponent implements OnInit {
       alert('Name must not be empty!');
     }
     event.stopImmediatePropagation();
+  }
+
+  removeBoard() {
+    this.taskService.removeBoard(this.board.id);
+  }
+
+  editBoard() {
+    this.editTitleInput.nativeElement.value = this.board.name;
+    this.titleEditable = !this.titleEditable;
+    console.log(this.editTitleInput);
+    if (this.titleEditable)
+      setTimeout(() => this.editTitleInput.nativeElement.focus(), 0); // setTimeout cuz element is still hidden: https://goo.gl/UkFXTi
+  }
+
+  editBoardDone(new_name: string) {
+    this.board.name = new_name;
+    this.titleEditable = false;
   }
 
   addTask() {

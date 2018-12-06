@@ -4,6 +4,6 @@
 </div>
 <div id="wrapper">
   <div id="boards">
-    <app-board *ngFor="let board of boards" [board]="board"></app-board>
+    <app-board [@boardAnimation]="'in'" *ngFor="let board of boards" [board]="board"></app-board>
   </div>
 </div>

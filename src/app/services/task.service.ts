@@ -13,7 +13,15 @@ export class TaskService {
 
   public boards: Board[] = [];
 
-  constructor(private utilService: UtilService, private taskFactory: TaskFactory, private boardFactory: BoardFactory) { }
+  private onBoardsChangedEvent: EventEmitter<Board[]>;
+
+  constructor(private utilService: UtilService, private taskFactory: TaskFactory, private boardFactory: BoardFactory) {
+    this.onBoardsChangedEvent = new EventEmitter<Board[]>();
+  }
+
+  onBoardsChanged(): Observable<Board[]> {
+    return this.onBoardsChangedEvent.asObservable();
+  }
 
   add(taskName: string, board: Board) {
     board.tasks.push(this.taskFactory.make(taskName));
@@ -47,12 +55,18 @@ export class TaskService {
 
   removeBoard(boardId: string) {
     this.boards = this.boards.filter((board: Board) => board.id !== boardId);
+    this.triggerBoardsChanged();
+  }
+
+  triggerBoardsChanged() {
+    this.onBoardsChangedEvent.emit(this.boards);
   }
 
   addBoard(name: string, tasks: Task[] = []): Board {
     let board = this.boardFactory.make(name, tasks);
     console.log(this.boards);
     this.boards.push(board);
+    this.triggerBoardsChanged();
     return board;
   }
 

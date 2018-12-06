@@ -93,10 +93,17 @@ ul li.done::before {
   color: #364df4;
 }
 
+.option-icon:hover {
+  color: #ccc;
+  cursor: pointer;
+}
+
 /* Style the header */
 .header {
+    position: relative;
     background-color: #f44336;
     padding: 30px 40px;
+    padding-top: 50px;
     color: white;
     text-align: center;
 }
@@ -139,4 +146,35 @@ input {
 
 .title {
   margin-top: 0px;
+  margin-bottom: 20px;
+  font-family: 'Arial';
+  font-size: 20px;
+  font-weight: 700;
 }
+
+.options {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.option-icon {
+  display: inline-block;
+}
+
+.title-input {
+  color: white;
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-family: 'Arial';
+  font-size: 20px;
+  font-weight: 700;
+  padding: 0px;
+  width: 100%;
+  margin-bottom: 20px;
+  text-align: center;
+  background: transparent;
+  border: none;
+}
+
+

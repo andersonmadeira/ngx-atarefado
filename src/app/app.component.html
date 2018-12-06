@@ -1,6 +1,9 @@
-<div class="page-header">
-  <span (click)="addBoard()" class="btn btn-primary btn-add-board"> <span class="icono-plus"></span> Add new task board</span>
+<div id="page-header">
+  <span (click)="addBoard()" class="btn btn-primary btn-add-board"> <span class="icono-plus"></span> Add new task
+    board</span>
 </div>
-<div class="wrapper">
-  <app-board *ngFor="let board of boards" [board]="board"></app-board>
+<div id="wrapper">
+  <div id="boards">
+    <app-board *ngFor="let board of boards" [board]="board"></app-board>
+  </div>
 </div>

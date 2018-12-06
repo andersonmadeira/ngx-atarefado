@@ -4,9 +4,6 @@
 }
 
 :host {
-  float: left;
-  margin-right: 40px;
-  margin-top: 40px;
   width: 400px;
 }
 
@@ -140,6 +137,6 @@ input {
   background: #f44336;
 }
 
-.cat_title {
+.title {
   margin-top: 0px;
 }

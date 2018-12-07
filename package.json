@@ -1,7 +1,7 @@
 {
-  "name": "ng-tasks",
-  "version": "0.0.0",
-  "license": "MIT",
+  "name": "atarefado",
+  "version": "0.5.2",
+  "license": "GPL-3.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build_github": "ng build --prod --base-href \"https://andersonmadeira.github.io/ngx-tasks/\"",
+    "build_github": "ng build --prod --base-href \"https://andersonmadeira.github.io/atarefado/\"",
     "deploy_github": "ngh"
   },
   "private": true,

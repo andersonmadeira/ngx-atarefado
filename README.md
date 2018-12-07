@@ -1,18 +1,18 @@
-# ngx-tasks
+# atarefado
 
-A simple but powerful todo app that serves as an experiment of best practices of frontend dev with Angular.
+A simple but powerful tasks app that serves as an experiment of best practices of frontend dev with Angular.
 
 ## Instructions:
 
 ### No patience:
 
-Ok, you can jump right into the app [here](https://andersonmadeira.github.io/ngx-tasks/)
+Ok, you can jump right into the app [here](https://andersonmadeira.github.io/atarefado/)
 
 ### By myself:
 
 Clone the repo:
 
-```git clone git@github.com:andersonmadeira/ngx-tasks.git```
+```git clone git@github.com:andersonmadeira/atarefado.git```
 
 Install all dependencies:
 

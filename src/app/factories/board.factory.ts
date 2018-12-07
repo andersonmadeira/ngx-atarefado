@@ -10,7 +10,7 @@ export class BoardFactory {
   constructor(private utilService: UtilService) { }
 
   make(name: string, tasks: Task[] = []): Board {
-    let b = new Board();
+    const b = new Board();
     b.id = this.utilService.generateUniqueId();
     b.name = name;
     b.tasks = tasks;

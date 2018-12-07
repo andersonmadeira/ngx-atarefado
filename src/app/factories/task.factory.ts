@@ -10,7 +10,7 @@ export class TaskFactory {
   constructor(private utilService: UtilService) { }
 
   make(name: string): Task {
-    let t = new Task();
+    const t = new Task();
     t.id = this.utilService.generateUniqueId();
     t.name = name;
     t.done = false;

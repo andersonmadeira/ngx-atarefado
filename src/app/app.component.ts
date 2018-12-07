@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
 
     this.taskService.onBoardsChanged().subscribe( (boards: Board[]) => {
       this.boards = boards;
-      console.log("Boards changed to: ", this.boards);
+      console.log('Boards changed to: ', this.boards);
     });
   }
 

@@ -29,12 +29,12 @@ export class BoardComponent implements OnInit {
    */
   @Input() board: Board;
 
-  titleEditable: boolean = false;
+  titleEditable = false;
 
   @ViewChild('editTitleInput')
   editTitleInput: ElementRef;
 
-  public taskInput: string = '';
+  public taskInput = '';
 
   constructor(private taskService: TaskService) {
     // pass silently
@@ -45,7 +45,7 @@ export class BoardComponent implements OnInit {
   }
 
   editTask(event: Event, t: Task) {
-    let new_name = prompt("Type new name for task: ");
+    const new_name = prompt('Type new name for task: ');
     if (new_name) {
       t.name = new_name;
     } else if (new_name !== null) {
@@ -62,8 +62,9 @@ export class BoardComponent implements OnInit {
     this.editTitleInput.nativeElement.value = this.board.name;
     this.titleEditable = !this.titleEditable;
     console.log(this.editTitleInput);
-    if (this.titleEditable)
+    if (this.titleEditable) {
       setTimeout(() => this.editTitleInput.nativeElement.focus(), 0); // setTimeout cuz element is still hidden: https://goo.gl/UkFXTi
+    }
   }
 
   editBoardDone(new_name: string) {

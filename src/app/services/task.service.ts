@@ -36,12 +36,13 @@ export class TaskService {
   }
 
   restore(): Board[] {
+    const localBoards = localStorage.getItem('boards');
     let boards: Board[] = [];
-    let localBoards = localStorage.getItem('boards');
-    console.log(localBoards);
+
     if (localBoards) {
       boards = JSON.parse(localBoards);
     }
+
     return this.boards = boards;
   }
 
@@ -63,8 +64,7 @@ export class TaskService {
   }
 
   addBoard(name: string, tasks: Task[] = []): Board {
-    let board = this.boardFactory.make(name, tasks);
-    console.log(this.boards);
+    const board = this.boardFactory.make(name, tasks);
     this.boards.push(board);
     this.triggerBoardsChanged();
     return board;

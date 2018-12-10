@@ -1,16 +1,26 @@
-<div class="header">
-  <div class="options">
-    <span class="icono-rename option-icon" (click)="editBoard()"></span>
-    <span class="icono-cross option-icon" (click)="removeBoard()"></span>
-  </div>
-  <h2 [hidden]="titleEditable" class="title"> {{ board.name }} </h2>
-  <input [hidden]="!titleEditable" #editTitleInput class="title-input" type="text" (keyup.enter)="editBoardDone(editTitleInput.value)">
-  <input type="text" [(ngModel)]="taskInput" (keyup.enter)='addTask()' placeholder="Type your next task..">
-  <span (click)="addTask()" class="btn">Add</span>
-</div>
-
-<ul id="task-list">
-  <li [@taskItemAnimation]="'in'" *ngFor='let task of board.tasks' [class.done]="task.done" class='animated' (click)='task.done = !task.done'>
-    <span class="task_name">{{task.name}}</span> <span (click)='editTask($event, task)' class="icono-rename"></span>
-    <span (click)='removeTask(task)' class="icono-cross"></span> </li>
-</ul>
+<mat-card class="example-card">
+  <mat-card-header>
+    <div mat-card-avatar>
+      <mat-icon class="icon">list_alt</mat-icon>
+    </div>
+    <mat-card-title [hidden]="titleEditable"> {{ board.name }} </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-form-field>
+      <input matInput [(ngModel)]="taskInput" (keyup.enter)='addTask()' placeholder="Type your next task..">
+    </mat-form-field>
+    <mat-selection-list #taskList>
+      <mat-list-option [selected]="task.done" checkboxPosition="before" [class.done]="task.done" [@taskItemAnimation]="'in'" *ngFor='let task of board.tasks' (click)='task.done = !task.done'>
+        {{task.name}}
+      </mat-list-option>
+    </mat-selection-list>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button (click)="editBoard()">
+      <mat-icon class="icon">edit</mat-icon> Edit
+    </button>
+    <button mat-button (click)="removeBoard()">
+      <mat-icon class="icon">delete</mat-icon> Remove
+    </button>
+  </mat-card-actions>
+</mat-card>

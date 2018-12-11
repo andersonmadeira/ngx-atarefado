@@ -1,17 +1,17 @@
-<mat-card class="example-card">
+<mat-card class="example-card mat-elevation-z4">
   <mat-card-header>
     <div mat-card-avatar>
       <mat-icon class="icon">list_alt</mat-icon>
     </div>
-    <mat-card-title [hidden]="titleEditable"> {{ board.name }} </mat-card-title>
+    <mat-card-title> {{ board.name }} </mat-card-title>
   </mat-card-header>
   <mat-card-content>
     <mat-form-field>
       <input matInput [(ngModel)]="taskInput" (keyup.enter)='addTask()' placeholder="Type your next task..">
     </mat-form-field>
     <mat-selection-list #taskList>
-      <mat-list-option [selected]="task.done" checkboxPosition="before" [class.done]="task.done" [@taskItemAnimation]="'in'" *ngFor='let task of board.tasks' (click)='task.done = !task.done'>
-        {{task.name}}
+      <mat-list-option *ngFor='let task of board.tasks | sort:"done"' checkboxPosition="before" [class.done]="task.done" [selected]="task.done" [@taskItemAnimation]="'in'" (click)='task.done = !task.done'>
+        {{ task.name }}
       </mat-list-option>
     </mat-selection-list>
   </mat-card-content>
@@ -19,7 +19,7 @@
     <button mat-button (click)="editBoard()">
       <mat-icon class="icon">edit</mat-icon> Edit
     </button>
-    <button mat-button (click)="removeBoard()">
+    <button mat-button (click)="removeBoard()" color="primary">
       <mat-icon class="icon">delete</mat-icon> Remove
     </button>
   </mat-card-actions>

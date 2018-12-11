@@ -5,6 +5,8 @@ import { Task, Board } from 'app/types';
 import { TaskService } from 'app/services';
 import { Observable } from 'rxjs';
 
+import { TaskSortPipe } from 'app/pipes';
+
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
@@ -28,11 +30,6 @@ export class BoardComponent implements OnInit {
    * Category name
    */
   @Input() board: Board;
-
-  titleEditable = false;
-
-  @ViewChild('editTitleInput')
-  editTitleInput: ElementRef;
 
   public taskInput = '';
 
@@ -59,17 +56,12 @@ export class BoardComponent implements OnInit {
   }
 
   editBoard() {
-    this.editTitleInput.nativeElement.value = this.board.name;
-    this.titleEditable = !this.titleEditable;
-    console.log(this.editTitleInput);
-    if (this.titleEditable) {
-      setTimeout(() => this.editTitleInput.nativeElement.focus(), 0); // setTimeout cuz element is still hidden: https://goo.gl/UkFXTi
+    const new_name = prompt('Type a new name for this board: ');
+    if (new_name) {
+      this.board.name = new_name;
+    } else if (new_name !== null) {
+      alert('Name must not be empty!');
     }
-  }
-
-  editBoardDone(new_name: string) {
-    this.board.name = new_name;
-    this.titleEditable = false;
   }
 
   addTask() {

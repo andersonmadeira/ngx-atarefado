@@ -7,11 +7,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BoardComponent } from 'app/components';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './modules';
+import { TaskSortPipe } from './pipes';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BoardComponent
+    BoardComponent,
+    TaskSortPipe,
   ],
   imports: [
     BrowserModule,
@@ -19,6 +21,9 @@ import { MaterialModule } from './modules';
     HttpClientModule,
     FormsModule,
     MaterialModule,
+  ],
+  exports: [
+    TaskSortPipe,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -70,7 +70,7 @@ mat-form-field {
     width: 100%;
 }
 
-mat-list-option.done {
+mat-list-option.done .inner-text {
     text-decoration: line-through;
 }
 

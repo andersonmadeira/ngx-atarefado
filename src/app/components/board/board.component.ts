@@ -49,6 +49,11 @@ export class BoardComponent implements OnInit {
     event.stopImmediatePropagation();
   }
 
+  removeTask(event: Event, t: Task) {
+    this.taskService.remove(t, this.board);
+    event.stopImmediatePropagation();
+  }
+
   removeBoard() {
     this.taskService.removeBoard(this.board.id);
   }
@@ -86,10 +91,6 @@ export class BoardComponent implements OnInit {
     } else {
       alert('Task must not be empty!');
     }
-  }
-
-  removeTask(task: Task) {
-    this.taskService.remove(task, this.board);
   }
 
 }

@@ -11,7 +11,9 @@
     </mat-form-field>
     <mat-selection-list #taskList>
       <mat-list-option *ngFor='let task of board.tasks' checkboxPosition="before" [class.done]="task.done" [selected]="task.done" [@taskItemAnimation]="'in'" (click)='toggleDone(task)'>
-        {{ task.name }}
+        <span class="inner-text">{{ task.name }}</span>
+        <mat-icon mat-list-icon (click)="editTask($event, task)">edit</mat-icon>
+        <mat-icon mat-list-icon color="primary" (click)="removeTask($task, task)">delete</mat-icon>
       </mat-list-option>
     </mat-selection-list>
   </mat-card-content>

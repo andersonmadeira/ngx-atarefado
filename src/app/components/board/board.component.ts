@@ -55,7 +55,9 @@ export class BoardComponent implements OnInit {
   }
 
   removeBoard() {
-    this.taskService.removeBoard(this.board.id);
+    if ( confirm('Are you sure you want to remove the board "' + this.board.name + '" ?') ) {
+      this.taskService.removeBoard(this.board.id);
+    }
   }
 
   sortTasks(array: Task[]) {

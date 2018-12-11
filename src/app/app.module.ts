@@ -5,19 +5,23 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { BoardComponent } from 'app/components';
-
 import { AppComponent } from './app.component';
+import { MaterialModule } from './modules';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BoardComponent
+    BoardComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
+    MaterialModule,
+  ],
+  exports: [
+    // pass
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,36 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+@import "~@angular/material/theming";
+
+// import our custom theme
+@import 'atarefado-theme.scss';
+
+@mixin mix-app-theme($atarefado-theme) {
+  $primary: map-get($atarefado-theme, primary);
+  $accent: map-get($atarefado-theme, accent);
+
+  .mat-button-toggle {
+    background-color: mat-color($accent);
+    color: mat-color($accent, default-contrast);
+  }
+
+  .mat-button-toggle-checked {
+    background-color: mat-color($primary);
+    color: mat-color($primary, default-contrast);
+  }
+}
+
+// specify theme class eg: <body class="atarefado-theme"> ... </body>
+.atarefado-theme {
+
+  // use our theme with angular-material-theme mixin
+  @include angular-material-theme($atarefado-theme);
+
+  @include mix-app-theme($atarefado-theme);
+}

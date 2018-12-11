@@ -24,7 +24,7 @@ export class TaskService {
   }
 
   add(taskName: string, board: Board) {
-    board.tasks.push(this.taskFactory.make(taskName));
+    board.tasks.unshift(this.taskFactory.make(taskName));
   }
 
   remove(task: Task, board: Board) {

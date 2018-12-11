@@ -1,0 +1,16 @@
+// atarefado theme
+
+// always include only once per project
+@include mat-core();
+
+// mat-palette accepts $palette-name, main, lighter and darker variants
+$atarefado-theme-primary: mat-palette($mat-red, 700);
+$atarefado-theme-accent: mat-palette($mat-red, 400);
+$atarefado-theme-warn: mat-palette($mat-red, 600);
+
+// create theme (use mat-dark-theme for themes with dark backgrounds)
+$atarefado-theme: mat-light-theme(
+    $atarefado-theme-primary,
+    $atarefado-theme-accent,
+    $atarefado-theme-warn
+);

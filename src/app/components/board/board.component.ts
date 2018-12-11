@@ -29,11 +29,6 @@ export class BoardComponent implements OnInit {
    */
   @Input() board: Board;
 
-  titleEditable = false;
-
-  @ViewChild('editTitleInput')
-  editTitleInput: ElementRef;
-
   public taskInput = '';
 
   constructor(private taskService: TaskService) {
@@ -54,22 +49,41 @@ export class BoardComponent implements OnInit {
     event.stopImmediatePropagation();
   }
 
-  removeBoard() {
-    this.taskService.removeBoard(this.board.id);
+  removeTask(event: Event, t: Task) {
+    this.taskService.remove(t, this.board);
+    event.stopImmediatePropagation();
   }
 
-  editBoard() {
-    this.editTitleInput.nativeElement.value = this.board.name;
-    this.titleEditable = !this.titleEditable;
-    console.log(this.editTitleInput);
-    if (this.titleEditable) {
-      setTimeout(() => this.editTitleInput.nativeElement.focus(), 0); // setTimeout cuz element is still hidden: https://goo.gl/UkFXTi
+  removeBoard() {
+    if ( confirm('Are you sure you want to remove the board "' + this.board.name + '" ?') ) {
+      this.taskService.removeBoard(this.board.id);
     }
   }
 
-  editBoardDone(new_name: string) {
-    this.board.name = new_name;
-    this.titleEditable = false;
+  sortTasks(array: Task[]) {
+    array.sort((a: Task, b: Task) => {
+      if (a.done < b.done) {
+        return -1;
+      } else if (a.done > b.done) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+  }
+
+  toggleDone(task: Task) {
+    task.done = !task.done;
+    this.sortTasks(this.board.tasks);
+  }
+
+  editBoard() {
+    const new_name = prompt('Type a new name for this board: ');
+    if (new_name) {
+      this.board.name = new_name;
+    } else if (new_name !== null) {
+      alert('Name must not be empty!');
+    }
   }
 
   addTask() {
@@ -79,10 +93,6 @@ export class BoardComponent implements OnInit {
     } else {
       alert('Task must not be empty!');
     }
-  }
-
-  removeTask(task: Task) {
-    this.taskService.remove(task, this.board);
   }
 
 }

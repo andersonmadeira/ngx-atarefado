@@ -10,7 +10,7 @@
       <input matInput [(ngModel)]="taskInput" (keyup.enter)='addTask()' placeholder="Type your next task..">
     </mat-form-field>
     <mat-selection-list #taskList>
-      <mat-list-option *ngFor='let task of board.tasks | sort:"done"' checkboxPosition="before" [class.done]="task.done" [selected]="task.done" [@taskItemAnimation]="'in'" (click)='task.done = !task.done'>
+      <mat-list-option *ngFor='let task of board.tasks' checkboxPosition="before" [class.done]="task.done" [selected]="task.done" [@taskItemAnimation]="'in'" (click)='toggleDone(task)'>
         {{ task.name }}
       </mat-list-option>
     </mat-selection-list>

@@ -5,8 +5,6 @@ import { Task, Board } from 'app/types';
 import { TaskService } from 'app/services';
 import { Observable } from 'rxjs';
 
-import { TaskSortPipe } from 'app/pipes';
-
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
@@ -53,6 +51,23 @@ export class BoardComponent implements OnInit {
 
   removeBoard() {
     this.taskService.removeBoard(this.board.id);
+  }
+
+  sortTasks(array: Task[]) {
+    array.sort((a: Task, b: Task) => {
+      if (a.done < b.done) {
+        return -1;
+      } else if (a.done > b.done) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+  }
+
+  toggleDone(task: Task) {
+    task.done = !task.done;
+    this.sortTasks(this.board.tasks);
   }
 
   editBoard() {

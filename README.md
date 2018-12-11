@@ -1,5 +1,7 @@
 # atarefado
 
+![](https://img.shields.io/badge/linting-true-green.svg)
+![](https://img.shields.io/github/tag/andersonmadeira/atarefado.svg)
 [![Known Vulnerabilities](https://snyk.io/test/github/andersonmadeira/atarefado/badge.svg?targetFile=package.json)](https://snyk.io/test/github/andersonmadeira/atarefado?targetFile=package.json)
 <a href="https://codeclimate.com/github/andersonmadeira/atarefado/maintainability"><img src="https://api.codeclimate.com/v1/badges/054ee455cb8defd71143/maintainability" /></a>
 

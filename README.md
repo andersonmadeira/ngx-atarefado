@@ -34,6 +34,5 @@ Maybe we can build the most awesome-yet-simple task app together, so feel free t
 ## Credits
 
 - <span style="color: red">&hearts;</span> <a href="https://angular.io" target="_blank">Angular </a>
-- <a href="https://github.com/saeedalipoor/icono" target="_blank">CSS Icons</a>
+- <a href="https://material.angular.io/" target="_blank">Angular Material</a>
 - <a href="https://github.com/tholman/github-corners" target="_blank">Github Corners</a>
-- <a href="https://www.w3schools.com/howto/howto_js_todolist.asp" target="_blank">Style and Colors</a>

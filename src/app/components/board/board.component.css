@@ -15,3 +15,18 @@ mat-list-option.done .inner-text {
     text-decoration: line-through;
     color: #ef5350;
 }
+
+mat-list-option {
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+/* /deep/ deprecated, we need to find an alternative */
+:host /deep/ .mat-list-item-content {
+  padding: 0!important;
+}
+
+:host /deep/ .mat-list-text {
+  padding: 0!important;
+  padding-left: 10px!important;
+}

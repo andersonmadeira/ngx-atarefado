@@ -31,6 +31,8 @@ export class BoardComponent implements OnInit {
 
   public taskInput = '';
 
+  public taskFilter: boolean = null;
+
   constructor(private taskService: TaskService) {
     // pass silently
   }
@@ -40,7 +42,7 @@ export class BoardComponent implements OnInit {
   }
 
   editTask(event: Event, t: Task) {
-    const new_name = prompt('Type new name for task: ');
+    const new_name = prompt('Type new name for task: ', t.name);
     if (new_name) {
       t.name = new_name;
     } else if (new_name !== null) {
@@ -72,13 +74,34 @@ export class BoardComponent implements OnInit {
     });
   }
 
+  clearDone() {
+    // pass
+  }
+
+  getTaskVisibility(done: boolean): string {
+    return (this.taskFilter === done || this.taskFilter === null) ? 'inherit' : 'none';
+  }
+
+  filterTasks(done: boolean|null) {
+    this.taskFilter = done;
+  }
+
+  getFilterButtonColor(done: boolean|null) {
+    return this.taskFilter === done ? 'primary' : '';
+  }
+
+  countPendingTasks(): number {
+    const pending = this.board.tasks.filter( (t: Task) => !t.done );
+    return pending.length;
+  }
+
   toggleDone(task: Task) {
     task.done = !task.done;
     this.sortTasks(this.board.tasks);
   }
 
   editBoard() {
-    const new_name = prompt('Type a new name for this board: ');
+    const new_name = prompt('Type a new name for this board: ', this.board.name);
     if (new_name) {
       this.board.name = new_name;
     } else if (new_name !== null) {

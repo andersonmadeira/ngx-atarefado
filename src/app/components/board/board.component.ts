@@ -40,7 +40,7 @@ export class BoardComponent implements OnInit {
   }
 
   editTask(event: Event, t: Task) {
-    const new_name = prompt('Type new name for task: ');
+    const new_name = prompt('Type new name for task: ', t.name);
     if (new_name) {
       t.name = new_name;
     } else if (new_name !== null) {
@@ -78,7 +78,7 @@ export class BoardComponent implements OnInit {
   }
 
   editBoard() {
-    const new_name = prompt('Type a new name for this board: ');
+    const new_name = prompt('Type a new name for this board: ', this.board.name);
     if (new_name) {
       this.board.name = new_name;
     } else if (new_name !== null) {

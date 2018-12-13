@@ -31,6 +31,8 @@ export class BoardComponent implements OnInit {
 
   public taskInput = '';
 
+  public taskFilter: boolean = null;
+
   constructor(private taskService: TaskService) {
     // pass silently
   }
@@ -70,6 +72,27 @@ export class BoardComponent implements OnInit {
         return 0;
       }
     });
+  }
+
+  clearDone() {
+    // pass
+  }
+
+  getTaskVisibility(done: boolean): string {
+    return (this.taskFilter === done || this.taskFilter === null) ? 'inherit' : 'none';
+  }
+
+  filterTasks(done: boolean|null) {
+    this.taskFilter = done;
+  }
+
+  getFilterButtonColor(done: boolean|null) {
+    return this.taskFilter === done ? 'primary' : '';
+  }
+
+  countPendingTasks(): number {
+    const pending = this.board.tasks.filter( (t: Task) => !t.done );
+    return pending.length;
   }
 
   toggleDone(task: Task) {

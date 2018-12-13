@@ -8,12 +8,12 @@
 }
 
 mat-form-field {
-    width: 100%;
+  width: 100%;
 }
 
 mat-list-option.done .inner-text {
-    text-decoration: line-through;
-    color: #ef5350;
+  text-decoration: line-through;
+  color: #ef5350;
 }
 
 mat-list-option {
@@ -29,4 +29,22 @@ mat-list-option {
 :host /deep/ .mat-list-text {
   padding: 0!important;
   padding-left: 10px!important;
+}
+
+.board-options {
+  position: relative;
+  height: auto;
+  padding-top: 5px;
+}
+
+.pending-text {
+  line-height: 36px;
+  position: relative;
+  left: 0px;
+}
+
+.status-buttons {
+  display: inline-block;
+  position: absolute;
+  right: 0px;
 }

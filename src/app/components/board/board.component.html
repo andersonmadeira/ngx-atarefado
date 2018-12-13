@@ -10,12 +10,21 @@
       <input matInput [(ngModel)]="taskInput" (keyup.enter)='addTask()' placeholder="Type your next task..">
     </mat-form-field>
     <mat-selection-list #taskList>
-      <mat-list-option *ngFor='let task of board.tasks' checkboxPosition="before" [class.done]="task.done" [selected]="task.done" [@taskItemAnimation]="'in'" (click)='toggleDone(task)'>
+      <mat-list-option *ngFor='let task of board.tasks' [style.display]="getTaskVisibility(task.done)" checkboxPosition="before"
+        [class.done]="task.done" [selected]="task.done" [@taskItemAnimation]="'in'" (click)='toggleDone(task)'>
         <span class="inner-text">{{ task.name }}</span>
         <mat-icon mat-list-icon (click)="editTask($event, task)">edit</mat-icon>
         <mat-icon mat-list-icon color="primary" (click)="removeTask($task, task)">delete</mat-icon>
       </mat-list-option>
     </mat-selection-list>
+    <div class="board-options">
+      <span class="pending-text">{{ countPendingTasks() }} Pending Tasks</span>
+      <div class="status-buttons">
+        <button mat-button (click)="filterTasks(null)" [color]="getFilterButtonColor(null)">All</button>
+        <button mat-button (click)="filterTasks(false)" [color]="getFilterButtonColor(false)">Pending</button>
+        <button mat-button (click)="filterTasks(true)" [color]="getFilterButtonColor(true)">Done</button>
+      </div>
+    </div>
   </mat-card-content>
   <mat-card-actions>
     <button mat-button (click)="editBoard()">
